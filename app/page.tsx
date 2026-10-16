@@ -33,26 +33,12 @@ const MAX_PRINT_SAFE_SCALE = 1.25;
 const QUICK_SCROLL_THRESHOLD_PX = 12;
 const QUICK_SCROLL_WINDOW_MS = 180;
 const QUICK_SCROLL_AXIS_RATIO = 1.15;
-const TRANSPORT_GUIDE = "/templates/vintage-transport.png";
+const TRANSPORT_GUIDE = `${import.meta.env.BASE_URL}templates/vintage-transport.png`;
 const LIBRARY_TEMPLATES = [
+  { id: "red-florals", name: "Red Florals", src: `${import.meta.env.BASE_URL}templates/library/red-florals.jpeg` },
   { id: "vintage-transport", name: "Vintage Transport", src: TRANSPORT_GUIDE },
-  { id: "foxes", name: "Little Foxes", src: "/templates/library/foxes.jpeg" },
-  { id: "crabs", name: "Playful Crabs", src: "/templates/library/crabs.jpeg" },
-  { id: "deer", name: "Woodland Deer", src: "/templates/library/deer.jpeg" },
-  { id: "blue-flowers", name: "Blue Flowers", src: "/templates/library/blue-flowers.jpeg" },
-  { id: "ducks", name: "Watercolor Ducks", src: "/templates/library/ducks.jpeg" },
-  { id: "red-florals", name: "Red Florals", src: "/templates/library/red-florals.jpeg" },
-  { id: "brown-flowers", name: "Retro Flowers", src: "/templates/library/brown-flowers.jpeg" },
-  { id: "cornflowers", name: "Cornflowers", src: "/templates/library/cornflowers.jpeg" },
-  { id: "chickens", name: "Farm Chickens", src: "/templates/library/chickens.jpeg" },
-  { id: "cows", name: "Watercolor Cows", src: "/templates/library/cows.jpeg" },
-  { id: "vintage-aviation", name: "Vintage Aviation", src: "/templates/library/vintage-aviation.jpeg" },
-  { id: "butterflies", name: "Soft Butterflies", src: "/templates/library/butterflies.jpeg" },
-  { id: "donkeys", name: "Happy Donkeys", src: "/templates/library/donkeys.jpeg" },
-  { id: "fox-poses", name: "Fox Poses", src: "/templates/library/fox-poses.jpeg" },
-  { id: "ocean-line-art", name: "Ocean Line Art", src: "/templates/library/ocean-line-art.jpeg" },
-  { id: "pink-roses", name: "Pink Roses", src: "/templates/library/pink-roses.jpeg" },
-  { id: "botanical-line-art", name: "Botanical Line Art", src: "/templates/library/botanical-line-art.jpeg" },
+  { id: "ocean-line-art", name: "Ocean Line Art", src: `${import.meta.env.BASE_URL}templates/library/ocean-line-art.jpeg` },
+  { id: "deer", name: "Woodland Deer", src: `${import.meta.env.BASE_URL}templates/library/deer.jpeg` },
 ] as const;
 type Workflow = "motifs" | "finished";
 type MeasurementUnit = "cm" | "in";
@@ -3279,6 +3265,23 @@ export default function Home() {
               {selectMotifsMode && <p className="motif-layer-note">Tap pieces on the canvas or in this list, then Merge. Tiny pieces can be selected here.</p>}
               <div className="motif-list">
                 {[...listedMotifs].reverse().map((motif) => <PencilButton type="button" key={motif.id} aria-pressed={selectMotifsMode ? selectedMotifIds.includes(motif.id) : selectedId === motif.id} className={(selectMotifsMode ? selectedMotifIds.includes(motif.id) : selectedId === motif.id) ? "motif-row selected" : "motif-row"} onActivate={() => { if (selectMotifsMode) toggleMotifSelection(motif.id); else { setSelectedId(motif.id); setSelectedCopy(null); } }}><img src={motif.src} alt="" /><span>{motif.name}</span></PencilButton>)}
+              </div>
+            </div>
+            <div className="panel-section template-section">
+              <p className="eyebrow">Use templates</p>
+              <p className="helper">Choose a reference and arrange the Halloween motifs over it. Templates stay out of the repeat preview and downloads.</p>
+              {guide && <div className="guide-controls">
+                <div className="guide-toggle"><span>Show template</span><Switch checked={guide.visible} onCheckedChange={(checked) => updateGuide({ visible: checked })} aria-label="Show template" /></div>
+                <label><span>Opacity</span><output>{guide.opacity}%</output><Slider value={[guide.opacity]} min={5} max={60} step={1} disabled={!guide.visible} onPointerDown={rememberChange} onValueChange={(value) => updateGuide({ opacity: value[0] }, false)} aria-label="Template opacity" /></label>
+                <PencilButton type="button" className="remove-reference" onActivate={removeGuide}><Trash2 size={15} />Remove template</PencilButton>
+              </div>}
+              <div className="template-library-grid" aria-label="Demo templates">
+                {LIBRARY_TEMPLATES.map((template) => (
+                  <PencilButton type="button" key={template.id} aria-pressed={guide?.kind === "library" && guide.id === template.id} className={guide?.kind === "library" && guide.id === template.id ? "real-template active" : "real-template"} onActivate={() => chooseLibraryGuide(template)}>
+                    <img src={template.src} alt="" loading="lazy" />
+                    <span><strong>{template.name}</strong><small>Use as a reference</small></span>
+                  </PencilButton>
+                ))}
               </div>
             </div>
           </>

@@ -492,3 +492,5 @@ button { color:inherit; }
 .demo-intro a { display:inline-flex; align-items:center; justify-content:center; min-height:42px; padding:9px 13px; border-radius:9px; background:#704c42; color:#fff; text-decoration:none; font-size:13px; font-weight:800; }
 .demo-intro a:hover { background:#56372f; }
 .demo-watermark-note { margin:9px 0 0; color:#8c4f3d; font-size:12px; font-weight:700; line-height:1.45; }
+
+.template-section > .helper { margin:0 0 14px; }
