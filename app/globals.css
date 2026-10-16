@@ -1,6 +1,8 @@
-@import "tailwindcss";
+@import "tailwindcss" source(none);
 @import "tw-animate-css";
 @import "../vendor/shadcn-tailwind-4.13.0.css";
+@source "./";
+@source "../components";
 @source inline("no-scrollbar scroll-fade shimmer");
 
 :root { --ink:#243a3a; --ink-soft:#526564; --paper:#f5f1e9; --surface:#fffefa; --line:#dad7cf; --accent:#c96f55; --accent-dark:#a6533d; }

@@ -449,19 +449,19 @@ function demoSource(colors: string[], turn: number) {
 function seedMotifs(): Motif[] {
   const canvas = { width: EXPORT_SIZE, height: EXPORT_SIZE, dpi: DEFAULT_DPI };
   const demoMotifs = [
-    ["Lollipop", "lollipop", 187, 370, 105, 225, .67, -10],
-    ["Little ghost", "ghost", 418, 524, 345, 245, .72, 7],
-    ["Boo lettering", "boo-lettering", 439, 320, 665, 145, .78, -7],
-    ["Black cat", "black-cat", 403, 278, 865, 250, .76, 8],
-    ["Pumpkins", "pumpkins", 316, 506, 155, 545, .72, -6],
-    ["Zombie hand", "zombie-hand", 349, 537, 365, 525, .72, 10],
-    ["Cauldron", "cauldron", 455, 503, 620, 535, .72, -6],
-    ["Bat moon", "bat-moon", 533, 468, 865, 535, .65, 5],
-    ["Spiders", "spiders", 342, 445, 75, 825, .68, -5],
-    ["Haunted house", "haunted-house", 518, 550, 370, 810, .74, 3],
-    ["Treat bag", "treat-bag", 358, 487, 650, 820, .73, -8],
-    ["Happy Halloween", "happy-halloween", 441, 259, 855, 900, .69, 7],
-    ["Green candy", "green-candy", 315, 202, 115, 960, .78, -14],
+    ["Lollipop", "lollipop", 188, 329, 35, 170, 0.85, -18],
+    ["Little ghost", "ghost", 419, 526, 305, 250, 0.95, 13],
+    ["Boo lettering", "boo-lettering", 386, 280, 560, 135, 1.05, -17],
+    ["Black cat", "black-cat", 407, 280, 800, 290, 1.1, 14],
+    ["Pumpkins", "pumpkins", 316, 508, 180, 490, 1.05, -9],
+    ["Zombie hand", "zombie-hand", 335, 433, 470, 535, 1.1, 24],
+    ["Cauldron", "cauldron", 412, 504, 650, 455, 1.1, -13],
+    ["Bat moon", "bat-moon", 514, 468, 900, 600, 1.05, 9],
+    ["Spiders", "spiders", 344, 445, 35, 780, 0.9, -7],
+    ["Haunted house", "haunted-house", 524, 551, 335, 850, 1.1, 8],
+    ["Treat bag", "treat-bag", 321, 488, 690, 800, 1.1, -18],
+    ["Happy Halloween", "happy-halloween", 445, 261, 860, 950, 1.05, 18],
+    ["Green candy", "green-candy", 317, 205, 115, 980, 1.1, -28],
   ] as const;
   return demoMotifs.map(([name, file, sourceWidth, sourceHeight, x, y, scale, rotation], index) => ({
     id: `halloween-demo-${index}`,
