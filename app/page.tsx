@@ -466,7 +466,7 @@ function seedMotifs(): Motif[] {
   return demoMotifs.map(([name, file, sourceWidth, sourceHeight, x, y, scale, rotation], index) => ({
     id: `halloween-demo-${index}`,
     name,
-    src: `${import.meta.env.BASE_URL}demo/halloween/${file}.webp`,
+    src: `${import.meta.env.BASE_URL}demo/halloween/${file}.webp?v=20261016b`,
     sourceWidth,
     sourceHeight,
     sourceDpi: DEFAULT_DPI,
