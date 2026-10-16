@@ -132,7 +132,20 @@ export async function withJpegMetadata(blob: Blob, dpi: number, profile: Uint8Ar
     segment.set(payload, 18);
     segments.push(segment);
   }
-  return new Blob([source.slice(0, 2), ...segments, source.slice(2)].map(ownedBuffer), { type: "image/jpeg" });
+  // Browser JPEG encoders may already embed an ICC profile. Replace those
+  // segments so readers see one coherent profile instead of duplicate chunks.
+  const retained: Uint8Array[] = [];
+  let offset = 2;
+  while (offset + 4 <= source.length && source[offset] === 0xff) {
+    const marker = source[offset + 1];
+    if (marker === 0xda || marker === 0xd9) break;
+    const length = (source[offset + 2] << 8) | source[offset + 3];
+    if (length < 2 || offset + 2 + length > source.length) break;
+    const existingIcc = marker === 0xe2 && signature.every((value, index) => source[offset + 4 + index] === value);
+    if (!existingIcc) retained.push(source.slice(offset, offset + length + 2));
+    offset += length + 2;
+  }
+  return new Blob([source.slice(0, 2), ...segments, ...retained, source.slice(offset)].map(ownedBuffer), { type: "image/jpeg" });
 }
 
 export function encodeTiffPixels(width: number, height: number, rgba: Uint8ClampedArray, transparent: boolean, dpi: number, profile: Uint8Array) {
