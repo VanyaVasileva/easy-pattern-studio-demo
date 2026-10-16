@@ -3254,7 +3254,7 @@ export default function Home() {
               <div className="demo-intro">
                 <strong>Move a motif across any edge and watch the repeat appear instantly.</strong>
                 <p>These watermarked Halloween motifs are ready to move, resize, rotate and duplicate against any background.</p>
-                <a href="https://vanyaillustrations.etsy.com" target="_blank" rel="noreferrer">Get the full version on Etsy</a>
+                <a href="https://vanyaillustrations.etsy.com/listing/4570579216" target="_blank" rel="noreferrer">Get the full version on Etsy</a>
               </div>
             </div>
             <div className="panel-section library-section">
