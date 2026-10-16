@@ -13,4 +13,43 @@
 <meta name="twitter:title" content="Easy Pattern Studio — Free Demo">
 <meta name="twitter:description" content="Try Easy Pattern Studio for free. Move, resize and rotate the included Halloween motifs, change colors and see your seamless repeat instantly.">
 <meta name="twitter:image" content="https://vanyavasileva.github.io/easy-pattern-studio-demo/demo-preview.jpg">
+
+<script>
+(function () {
+  var sent = {};
+  var pending = [];
+  function flush() {
+    if (!window.goatcounter || typeof window.goatcounter.count !== 'function') return;
+    while (pending.length) {
+      try { window.goatcounter.count(pending.shift()); } catch (_) {}
+    }
+  }
+  function once(path, title) {
+    if (sent[path]) return;
+    sent[path] = true;
+    pending.push({path: path, title: title, event: true});
+    flush();
+  }
+  document.addEventListener('click', function (e) {
+    var link = e.target.closest && e.target.closest('a[href]');
+    if (link && /^https:\/\/vanyaillustrations\.etsy\.com\/listing\/4570579216(?:[/?#]|$)/.test(link.href)) {
+      once('demo-etsy-click', 'Clicked full version on Etsy');
+    }
+  }, true);
+  var start = null;
+  document.addEventListener('pointerdown', function (e) {
+    if (e.target instanceof HTMLCanvasElement && e.target.classList.contains('editor-canvas')) start = {id: e.pointerId, x: e.clientX, y: e.clientY};
+  }, true);
+  document.addEventListener('pointermove', function (e) {
+    if (start && e.pointerId === start.id && Math.hypot(e.clientX - start.x, e.clientY - start.y) > 8) {
+      once('demo-canvas-interaction', 'Interacted with demo canvas');
+      start = null;
+    }
+  }, true);
+  document.addEventListener('pointerup', function () { start = null; }, true);
+  document.addEventListener('pointercancel', function () { start = null; }, true);
+  window.epsAnalyticsReady = flush;
+})();
+</script>
+<script data-goatcounter="https://vanya-demo.goatcounter.com/count" async src="https://gc.zgo.at/count.js" onload="window.epsAnalyticsReady()"></script>
 </head><body><div id="root"></div><script type="module" src="/main.tsx"></script></body></html>
