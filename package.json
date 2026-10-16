@@ -8,7 +8,8 @@
   "scripts": {
     "dev": "vite --host 0.0.0.0",
     "build": "vite build",
-    "preview": "vite preview --host 0.0.0.0"
+    "preview": "vite preview --host 0.0.0.0",
+    "test:color": "node --experimental-strip-types --test tests/color-model.test.mjs"
   },
   "dependencies": {
     "@base-ui/react": "^1.7.0",

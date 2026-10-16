@@ -1,5 +1,7 @@
 "use client";
 
+import { PreciseColorPicker } from "./precise-color-picker";
+
 import { panCanvasBy, zoomCanvasAt } from "./canvas-trackpad";
 import { editorPreviewSize } from "./editor-preview-resolution";
 import { ArrowDown, ArrowUp, Check, ChevronDown, ChevronsDown, ChevronsUp, Copy, Crosshair, Download, Eraser, FilePlus2, FlipHorizontal2, ImagePlus, LassoSelect, Maximize2, MousePointer2, Redo2, RotateCcw, Scissors, Trash2, Undo2, Upload, X } from "lucide-react";
@@ -3511,8 +3513,8 @@ export default function Home() {
           <div className="panel-section color-section">
             <div className="background-color-heading">
               <div><p className="eyebrow">Background</p><span>{background.toUpperCase()}</span></div>
-              <input aria-label="Background color" type="color" value={background} onPointerDown={rememberChange} onChange={(event) => chooseBackgroundColor(event.target.value)} />
             </div>
+            <PreciseColorPicker value={background} onChange={chooseBackgroundColor} onBegin={rememberChange} />
             <label className="background-hex-field" htmlFor="background-hex">
               <span>HEX color</span>
               <input
